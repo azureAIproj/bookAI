@@ -1,8 +1,32 @@
-export default function Home() {
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+function Home() {
+  const [emotion, setEmotion] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // 감정 값을 쿼리 파라미터로 전달
+    navigate(`/recommend?emotion=${encodeURIComponent(emotion)}`);
+  };
+
   return (
-    <div className="p-8 text-center">
-      <h1 className="text-2xl font-bold">📚 감정 기반 독서 추천 앱</h1>
-      <p className="mt-4 text-gray-600">오늘 기분에 맞는 책을 추천해드릴게요!</p>
+    <div style={{ padding: '2rem' }}>
+      <h1>오늘 기분이 어때요? 😄</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={emotion}
+          onChange={(e) => setEmotion(e.target.value)}
+          placeholder="예: 기분이 우울해요"
+          style={{ padding: '0.5rem', width: '60%', marginRight: '1rem' }}
+        />
+        <button type="submit">추천 받기</button>
+      </form>
     </div>
   );
 }
+
+export default Home;
