@@ -1,18 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  ----------------------------------------------------------------------
+  기존 :root, a, button 스타일 중 Tailwind와 충돌하거나 불필요한 부분을 제거
+  ----------------------------------------------------------------------
+*/
+
+/* Vite 기본 스타일이었던 :root, a, h1, button 스타일은 Tailwind를 사용하므로 대부분 제거합니다.
+   폰트 패밀리는 Tailwind의 기본 또는 커스텀 폰트 설정을 사용하고,
+   색상이나 배경색은 Tailwind 클래스로 컴포넌트 레벨에서 적용합니다.
+*/
+
 :root {
+  /*
+    system-ui 폰트 패밀리는 Tailwind의 기본 font-sans와 유사하므로 유지하거나 Tailwind 설정으로 대체 가능합니다.
+    line-height, font-weight 등은 Tailwind 클래스로 제어하는 것이 좋습니다.
+  */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /*
+    color-scheme, color, background-color 등은 Tailwind 클래스 또는
+    전역적으로 특정 테마를 적용할 때 사용합니다.
+    여기서는 Tailwind의 유틸리티 클래스를 사용할 것이므로 제거합니다.
+  */
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* -webkit-font-smoothing: antialiased; */ /* Tailwind base에 포함될 수 있음 */
+  /* -moz-osx-font-smoothing: grayscale; */ /* Tailwind base에 포함될 수 있음 */
 }
 
+/*
+  a 태그 스타일은 Tailwind의 text-blue-600, hover:text-blue-700 등으로 대체합니다.
+  전역적인 링크 스타일이 필요하면 @apply 지시어를 사용할 수 있습니다.
+*/
+/*
 a {
   font-weight: 500;
   color: #646cff;
@@ -21,20 +50,36 @@ a {
 a:hover {
   color: #535bf2;
 }
+*/
 
+/*
+  body 태그의 display: flex; place-items: center; min-height: 100vh;
+  이 부분은 컴포넌트에서 `className="flex items-center justify-center min-h-screen"`으로
+  완벽히 대체되므로 여기서는 제거합니다.
+  margin: 0; min-width: 320px; 정도만 유지합니다.
+*/
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
   min-width: 320px;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
+/*
+  h1 스타일은 Tailwind의 text-3xl, font-bold 등으로 대체합니다.
+*/
+/*
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+*/
 
+/*
+  button 스타일은 Tailwind 클래스로 커스텀하여 적용하므로 여기서는 제거합니다.
+*/
+/*
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -53,7 +98,13 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+*/
 
+/*
+  @media (prefers-color-scheme: light) 부분도
+  Tailwind의 다크 모드 설정 또는 직접적인 클래스 적용으로 대체 가능하므로 제거합니다.
+*/
+/*
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -65,4 +116,28 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+*/
+
+/*
+  ----------------------------------------------------------------------
+  커스텀 애니메이션 키프레임 정의 (tailwind.config.js가 없을 때)
+  ----------------------------------------------------------------------
+  이 부분은 tailwind.config.js 파일이 없을 경우에만 여기에 유지합니다.
+  만약 tailwind.config.js를 생성했다면 이 내용을 그 파일로 옮겨야 합니다.
+*/
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 커스텀 애니메이션 클래스 정의 */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
 }
